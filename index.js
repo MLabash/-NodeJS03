@@ -5,10 +5,12 @@ const app = express();
 
 var toDo = [];
 
+// list tasks
 app.get('/tasks', (request, response, next)=>{
   response.status(200).json(toDo);
 });
 
+//add task
 app.post('/task',(request, response, next)=>{
   var task = {};
   task.task = request.query.task;
@@ -21,6 +23,7 @@ app.post('/task',(request, response, next)=>{
   }
 });
 
+//update tasks
 app.patch('/task/:id',(request, response, next)=>{
   let index = request.params.id - 1;
   if ((toDo.length > 0)&&(index >= 0) && (index < toDo.length)&&(request.query.task !== '') && (request.query.task !== undefined)){
@@ -32,6 +35,7 @@ app.patch('/task/:id',(request, response, next)=>{
    }
 });
 
+//remove task
 app.delete('/task/:id',(request, response, next)=>{
   let index = request.params.id - 1;
     if ((toDo.length > 0)&&(index >= 0) && (index <= toDo.length)){
@@ -44,6 +48,7 @@ app.delete('/task/:id',(request, response, next)=>{
     }
 });
 
+//reset tasks
 app.delete('/tasks',(request, response, next)=>{
   var taskNumber = toDo.length;
     if(taskNumber > 0){
